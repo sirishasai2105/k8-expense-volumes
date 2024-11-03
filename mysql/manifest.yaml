@@ -34,4 +34,43 @@ spec:
     port: 3306
     targetPort: 3306
 
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: expense
+spec:
+  selector:
+    matchLabels:
+      project: expense
+      environment: dev
+      tier: db # has to match .spec.template.metadata.labels
+  serviceName: "mysql-headless"
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        project: expense
+        environment: dev
+        tier: db
+         # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: mysql
+        image: sirishasai2105/mysql:v1
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "expense-ebs"
+      resources:
+        requests:
+          storage: 1Gi
+
 
