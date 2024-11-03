@@ -5,7 +5,7 @@ metadata:
   name: mysql-headless
   namespace: expense
 spec:
-  clusterIp: None
+  clusterIP: None
   selector:
     project: expense
     environment: dev
