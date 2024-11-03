@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mahalakshmi2997/frontend:v1
+        image: sirishasai2105/frontend:v1
         #imagePullPolicy: Always
 
 ---
